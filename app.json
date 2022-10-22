@@ -3,6 +3,7 @@
     "name": "domotics-app",
     "slug": "domotics-app",
     "version": "1.0.0",
+    "entryPoint": "./src/main.tsx",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
