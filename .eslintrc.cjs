@@ -15,7 +15,6 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "react", "simple-import-sort", "unused-imports"],
   rules: {
-    indent: ["error", 2, { SwitchCase: 1 }],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "no-unused-expressions": "off",

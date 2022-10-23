@@ -4,7 +4,12 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@resources/*": ["./resources/*"]
-    }
+      "@assets/*": ["./assets/*"],
+      "@resources/*": ["./src/resources/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@components/*": ["./src/components/*"],
+      "@modules/*": ["./src/modules/*"]
+    },
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
   }
 }
