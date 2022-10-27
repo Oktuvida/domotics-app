@@ -13,10 +13,11 @@ module.exports = {
     },
   },
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "react", "simple-import-sort", "unused-imports"],
+  plugins: ["@typescript-eslint", "react", "simple-import-sort", "unused-imports", "import"],
   rules: {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "import/no-duplicates": "error",
     "no-unused-expressions": "off",
     "unused-imports/no-unused-imports": "error",
   },
