@@ -24,16 +24,14 @@ export default function Lights() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.allLightsContainer}>
-        <Slider
-          value={isAllLightsOn}
-          onIcon="lightbulb-group"
-          offIcon="lightbulb-group-outline"
-          style={styles.slider}
-          title="All"
-          onToggleSlider={isAllLightsOnChangeHandler}
-        />
-      </View>
+      <Slider
+        value={isAllLightsOn}
+        onIcon="lightbulb-group"
+        offIcon="lightbulb-group-outline"
+        style={[styles.slider, styles.allLightsContainer]}
+        title="All"
+        onToggleSlider={isAllLightsOnChangeHandler}
+      />
       <Slider
         value={isBoardLightsOn}
         onIcon="lightbulb"
@@ -69,8 +67,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   allLightsContainer: {
-    transform: [{ scale: 1.2 }],
-    marginVertical: 5,
+    transform: [{ scale: 1.3 }],
+    marginVertical: 20,
   },
   slider: {
     marginVertical: 10,
