@@ -9,7 +9,7 @@ import {
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 
-import { HomeScreensProps, MainScreenProps } from "./screens";
+import { MainScreenProps, ServicesScreensProps } from "./screens";
 
 export function createMainStack() {
   return createNativeStackNavigator();
@@ -19,10 +19,10 @@ export type MainStackProp<
   RouteName extends keyof MainScreenProps = keyof MainScreenProps
 > = NativeStackNavigationProp<MainScreenProps, RouteName>;
 
-export function createHomeStack() {
-  return createMaterialBottomTabNavigator<HomeScreensProps>();
+export function createServicesStack() {
+  return createMaterialBottomTabNavigator<ServicesScreensProps>();
 }
-export type HomeStackOptions = MaterialBottomTabNavigationOptions;
-export type HomeStackProp<
-  RouteName extends keyof HomeScreensProps = keyof HomeScreensProps
-> = MaterialBottomTabScreenProps<HomeScreensProps, RouteName>;
+export type ServicesStackOptions = MaterialBottomTabNavigationOptions;
+export type ServicesStackProps<
+  RouteName extends keyof ServicesScreensProps = keyof ServicesScreensProps
+> = MaterialBottomTabScreenProps<ServicesScreensProps, RouteName>;
