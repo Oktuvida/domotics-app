@@ -1,6 +1,5 @@
-import { Platform } from "react-native";
+import { Dimensions } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { deleteItemAsync, getItemAsync, setItemAsync } from "expo-secure-store";
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -9,24 +8,34 @@ type ThemeState = {
   setIsDark: (isDark?: boolean) => void;
 };
 
-const useSessionStore = create<ThemeState>()(
+type DimensionsState = {
+  windowHeight: number;
+  windowWidth: number;
+  setDimensions: ({
+    windowHeight,
+    windowWidth,
+  }: {
+    windowHeight: number;
+    windowWidth: number;
+  }) => void;
+};
+
+const useSessionStore = create<ThemeState & DimensionsState>()(
   devtools(
     persist(
       (set) => ({
         isDark: false,
-        setIsDark: (isDark) => set(() => ({ isDark: isDark })),
+        setIsDark: (isDark) => set((state) => ({ ...state, isDark })),
+
+        windowHeight: Dimensions.get("window").height,
+        windowWidth: Dimensions.get("window").width,
+        setDimensions: ({ windowHeight, windowWidth }) =>
+          set((state) => ({ ...state, windowHeight, windowWidth })),
       }),
       {
         name: "session",
         getStorage: () => {
-          if (Platform.OS === "web") {
-            return AsyncStorage;
-          }
-          return {
-            setItem: setItemAsync,
-            getItem: getItemAsync,
-            removeItem: deleteItemAsync,
-          };
+          return AsyncStorage;
         },
       }
     )
