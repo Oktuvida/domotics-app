@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { Dimensions, useColorScheme } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { darkTheme, lightTheme } from "@resources/theme";
 import { registerRootComponent } from "expo";
@@ -11,11 +11,25 @@ import App from "./App";
 
 function main() {
   const isDark = useColorScheme() === "dark";
-  const setIsDark = useSessionStore((state) => state.setIsDark);
+  const [setIsDark, setDimensions] = useSessionStore((state) => [
+    state.setIsDark,
+    state.setDimensions,
+  ]);
 
   useEffect(() => {
     setIsDark(isDark);
   }, [isDark]);
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener("change", ({ window }) => {
+      setDimensions({
+        windowHeight: window.height,
+        windowWidth: window.width,
+      });
+    });
+
+    return () => subscription?.remove();
+  }, []);
 
   return (
     <PaperProvider theme={isDark ? darkTheme : lightTheme}>

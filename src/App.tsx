@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StatusBar } from "react-native";
+import { SafeAreaView, StatusBar, View } from "react-native";
 import { useTheme } from "react-native-paper";
+import Services from "@components/screens/Services";
 import {
   NavigationContainer,
   Theme as NavigationTheme,
@@ -27,7 +28,7 @@ export default function App() {
       <SafeAreaView style={{ flex: 1 }}>
         <StatusBar
           barStyle={isDark ? "light-content" : "dark-content"}
-          backgroundColor={colors.background}
+          backgroundColor={navigationTheme?.colors.card}
         />
         <RootStack />
       </SafeAreaView>
@@ -35,15 +36,15 @@ export default function App() {
   );
 }
 
-const stackOptions: MainStackOptions = {
-  headerShown: false,
-} as const;
+const stackOptions: MainStackOptions = {} as const;
 
 const Stack = createMainStack();
 function RootStack() {
   return (
     <Stack.Navigator screenOptions={stackOptions}>
       <Stack.Screen name={MainScreens.HOME} component={Home} />
+      <Stack.Screen name={MainScreens.SERVICES} component={Services} />
+      <Stack.Screen name={MainScreens.REPORTS} component={View} />
     </Stack.Navigator>
   );
 }

@@ -1,48 +1,66 @@
-import React from "react";
-import { View } from "react-native";
-import { HomeScreens, MainScreens } from "@resources/screens";
-import { createHomeStack, MainStackProp } from "@resources/stacks";
-
-import Icon from "../UI/Icon";
-
-import Lights from "./Lights";
+import React, { useCallback } from "react";
+import { StyleSheet, View } from "react-native";
+import { Button, Text, Title } from "react-native-paper";
+import Wave from "@components/UI/Wave";
+import { MainScreens } from "@resources/screens";
+import { MainStackProp } from "@resources/stacks";
 
 type HomeProps = {
   navigation: MainStackProp<MainScreens.HOME>;
 };
 
-const Stack = createHomeStack();
 export default function Home({ navigation }: HomeProps) {
   return (
-    <Stack.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color }) => {
-          let name: keyof typeof Icon.glyphMap | undefined = undefined;
-          switch (route.name) {
-            case HomeScreens.LIGHTS:
-              name = focused ? "sunny" : "sunny-outline";
-              break;
-            case HomeScreens.DEVICES:
-              name = focused ? "desktop" : "desktop-outline";
-              break;
-            case HomeScreens.WINDOWS:
-              name = focused ? "grid" : "grid-outline";
-              break;
-            case HomeScreens.TEMPERATURE:
-              name = focused ? "thermometer" : "thermometer-outline";
-              break;
-          }
-
-          if (name !== undefined) {
-            return <Icon name={name} color={color} size={12} />;
-          }
-        },
-      })}
-    >
-      <Stack.Screen name={HomeScreens.LIGHTS} component={Lights} />
-      <Stack.Screen name={HomeScreens.DEVICES} component={View} />
-      <Stack.Screen name={HomeScreens.WINDOWS} component={View} />
-      <Stack.Screen name={HomeScreens.TEMPERATURE} component={View} />
-    </Stack.Navigator>
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Title style={styles.title}>Domotics APP</Title>
+        <Text>¡Hola! Bienvenido a nuestro proyecto</Text>
+        <Text></Text>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <Button
+          compact
+          mode="contained"
+          onPress={useCallback(() => {
+            navigation.navigate(MainScreens.SERVICES);
+          }, [])}
+        >
+          {MainScreens.SERVICES}
+        </Button>
+        <Button
+          compact
+          mode="contained"
+          onPress={useCallback(() => {
+            navigation.navigate(MainScreens.REPORTS);
+          }, [])}
+        >
+          {MainScreens.REPORTS}
+        </Button>
+      </View>
+      <Wave />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  textContainer: {
+    flex: 1,
+    marginTop: 30,
+    marginHorizontal: 10,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  buttonsContainer: {
+    width: "100%",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  title: {},
+});
