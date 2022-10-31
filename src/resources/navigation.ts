@@ -1,4 +1,3 @@
-import { Platform } from "react-native";
 import { DefaultTheme } from "react-native-paper";
 import { Theme as NavigationTheme } from "@react-navigation/native";
 
@@ -16,12 +15,6 @@ export function getNavigationTheme(
     notification: colors.notification,
     text: colors.text,
   };
-  if (Platform.OS !== "web") {
-    const primary = navigationColors.primary;
-    navigationColors.primary = navigationColors.card;
-    navigationColors.card = primary;
-    navigationColors.border = primary;
-  }
   return {
     dark: isDark,
     colors: navigationColors,
