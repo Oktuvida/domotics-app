@@ -1,20 +1,15 @@
 import React from "react";
-import { StyleSheet, View, ViewStyle } from "react-native";
-import { Avatar, Surface, Switch, useTheme } from "react-native-paper";
-import Animated, {
-  interpolateColor,
-  useAnimatedStyle,
-  useDerivedValue,
-  withTiming,
-} from "react-native-reanimated";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { Avatar, Surface, Switch, Text, useTheme } from "react-native-paper";
+import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 import { contrastColor } from "@resources/colors";
 
 export type SliderProps = {
   value: boolean;
-  onIcon: string;
-  offIcon: string;
+  onIcon: IconSource;
+  offIcon: IconSource;
   onToggleSlider?: (isSwitchOn: boolean) => void;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   title?: string;
 };
 
@@ -29,22 +24,6 @@ export default React.memo(function Slider({
   const theme = useTheme();
   const { colors } = theme;
 
-  const textColor = useDerivedValue(() => {
-    return withTiming(value ? 1 : 0, {
-      duration: 100,
-    });
-  }, [value]);
-
-  const animatedText = useAnimatedStyle(() => {
-    return {
-      color: interpolateColor(
-        textColor.value,
-        [0, 1],
-        [colors.text, contrastColor(colors.primary, 10)]
-      ),
-    };
-  });
-
   const onToggleSwitch = (value: boolean) => {
     if (typeof onToggleSlider === "function") {
       onToggleSlider(value);
@@ -52,7 +31,7 @@ export default React.memo(function Slider({
   };
 
   return (
-    <Surface style={{ ...styles.container, ...style }}>
+    <Surface style={[style, styles.container]}>
       <View style={{ ...styles.container, ...styles.leftContent }}>
         <Avatar.Icon
           style={styles.icon}
@@ -61,8 +40,27 @@ export default React.memo(function Slider({
         />
       </View>
       <View style={styles.rightContent}>
-        {title && <Animated.Text style={[animatedText]}>{title}</Animated.Text>}
-        <Switch value={value} onValueChange={onToggleSwitch} />
+        {title ? (
+          <Text
+            style={[
+              styles.title,
+              {
+                color: value
+                  ? contrastColor(colors.primary, 10)
+                  : colors.primary,
+              },
+            ]}
+            ellipsizeMode="tail"
+            numberOfLines={2}
+          >
+            {title}
+          </Text>
+        ) : null}
+        <Switch
+          value={value}
+          onValueChange={onToggleSwitch}
+          style={styles.switch}
+        />
       </View>
     </Surface>
   );
@@ -77,23 +75,27 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 8,
     maxHeight: 100,
-    maxWidth: 200,
+    maxWidth: 250,
+    width: "100%",
     alignSelf: "center",
     borderRadius: 15,
     margin: 0,
   },
   leftContent: {
-    marginRight: 20,
+    marginRight: 5,
   },
   rightContent: {
     flex: 1,
     justifyContent: "space-evenly",
-    minHeight: 70,
     maxHeight: 70,
     height: "100%",
     alignItems: "center",
   },
+  title: {
+    textAlign: "center",
+  },
   icon: {
     marginRight: 5,
   },
+  switch: {},
 });
