@@ -8,15 +8,6 @@ module.exports = function (api) {
       },
     },
     plugins: [
-      "react-native-reanimated/plugin",
-      [
-        "babel-plugin-styled-components",
-        {
-          minify: true,
-          transpileTemplateLiterals: true,
-          displayName: true,
-        },
-      ],
       [
         "module-resolver",
         {
@@ -30,6 +21,8 @@ module.exports = function (api) {
           extensions: [".js", ".jsx", ".ts", ".tsx"],
         },
       ],
+      "@babel/plugin-proposal-export-namespace-from",
+      "react-native-reanimated/plugin",
     ],
   };
 };
