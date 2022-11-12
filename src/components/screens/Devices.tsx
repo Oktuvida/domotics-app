@@ -7,8 +7,6 @@ import ProjectorOn from "@assets/icons/devices/projector-on.svg";
 import Slider from "@components/UI/Slider";
 import useSwitch from "@hooks/useSwitch";
 
-console.log(typeof LaptopOffIcon)
-
 export default function Devices() {
   const [isDesktopOn, , isDesktopOnChangeHandler] = useSwitch(false);
   const [isProjectorOn, , isProjectorOnChangeHandler] = useSwitch(false);
