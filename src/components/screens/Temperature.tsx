@@ -5,6 +5,7 @@ import AutoIcon from "@assets/icons/devices/auto.svg";
 import Slider from "@components/UI/Slider";
 import useSwitch from "@hooks/useSwitch";
 import { contrastColor } from "@resources/colors";
+import { getText } from "@resources/texts";
 
 export default function Temperature() {
   const theme = useTheme();
@@ -16,7 +17,7 @@ export default function Temperature() {
   return (
     <View style={styles.container}>
       <View>
-        <Title>Temperature</Title>
+        <Title>{getText("Temperature")}</Title>
         <View
           style={[
             styles.gradesContainer,
@@ -25,13 +26,7 @@ export default function Temperature() {
             },
           ]}
         >
-          <Text
-            style={[
-              styles.grades,
-            ]}
-          >
-            {grades}°C
-          </Text>
+          <Text style={[styles.grades]}>{grades}°C</Text>
         </View>
       </View>
       <View>
@@ -54,7 +49,8 @@ export default function Temperature() {
             [colors.background]
           )}
           onToggleSlider={setIsAutoOn}
-          title="Automatic"
+          title={getText("Automatic")}
+          style={styles.icon}
         />
       </View>
     </View>
@@ -71,9 +67,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 20,
     borderRadius: 15,
-    transform: [{scale: 2}]
+    transform: [{ scale: 2 }],
   },
   grades: {
     textAlign: "center",
+  },
+  icon: {
+    minWidth: 200,
   },
 });

@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { MainScreens, ServicesScreens } from "@resources/screens";
 import { createServicesStack, MainStackProp } from "@resources/stacks";
+import { getText } from "@resources/texts";
 
 import Icon from "../UI/Icon";
 
@@ -43,12 +44,33 @@ export default function Services({ navigation }: ServicesProps) {
           },
         })}
       >
-        <Stack.Screen name={ServicesScreens.LIGHTS} component={Lights} />
-        <Stack.Screen name={ServicesScreens.DEVICES} component={Devices} />
-        <Stack.Screen name={ServicesScreens.WINDOWS} component={Windows} />
+        <Stack.Screen
+          name={ServicesScreens.LIGHTS}
+          component={Lights}
+          options={{
+            title: getText(ServicesScreens.LIGHTS),
+          }}
+        />
+        <Stack.Screen
+          name={ServicesScreens.DEVICES}
+          component={Devices}
+          options={{
+            title: getText(ServicesScreens.DEVICES),
+          }}
+        />
+        <Stack.Screen
+          name={ServicesScreens.WINDOWS}
+          component={Windows}
+          options={{
+            title: getText(ServicesScreens.WINDOWS),
+          }}
+        />
         <Stack.Screen
           name={ServicesScreens.TEMPERATURE}
           component={Temperature}
+          options={{
+            title: getText(ServicesScreens.TEMPERATURE),
+          }}
         />
       </Stack.Navigator>
     </View>

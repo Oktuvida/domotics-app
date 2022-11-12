@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import Slider from "@components/UI/Slider";
 import useSwitch from "@hooks/useSwitch";
+import { getText } from "@resources/texts";
 
 export default function Windows() {
   const [isFirstCurtainOpen, , setIsFirstCurtainOpen] = useSwitch(false);
@@ -15,7 +16,7 @@ export default function Windows() {
         offIcon="curtains-closed"
         onIcon="curtains"
         onToggleSlider={setIsFirstCurtainOpen}
-        title="First Curtain"
+        title={getText("First Curtain")}
       />
       <Slider
         style={styles.slider}
@@ -23,7 +24,7 @@ export default function Windows() {
         offIcon="curtains-closed"
         onIcon="curtains"
         onToggleSlider={setIsSecondCurtainOpen}
-        title="Second Curtain"
+        title={getText("Second Curtain")}
       />
     </View>
   );

@@ -1,12 +1,5 @@
 import { Dimensions } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import create from "zustand";
-import { devtools, persist } from "zustand/middleware";
-
-type ThemeState = {
-  isDark: boolean;
-  setIsDark: (isDark?: boolean) => void;
-};
 
 type DimensionsState = {
   windowHeight: number;
@@ -20,26 +13,11 @@ type DimensionsState = {
   }) => void;
 };
 
-const useSessionStore = create<ThemeState & DimensionsState>()(
-  devtools(
-    persist(
-      (set) => ({
-        isDark: false,
-        setIsDark: (isDark) => set((state) => ({ ...state, isDark })),
-
-        windowHeight: Dimensions.get("window").height,
-        windowWidth: Dimensions.get("window").width,
-        setDimensions: ({ windowHeight, windowWidth }) =>
-          set((state) => ({ ...state, windowHeight, windowWidth })),
-      }),
-      {
-        name: "session",
-        getStorage: () => {
-          return AsyncStorage;
-        },
-      }
-    )
-  )
-);
+const useSessionStore = create<DimensionsState>()((set) => ({
+  windowHeight: Dimensions.get("window").height,
+  windowWidth: Dimensions.get("window").width,
+  setDimensions: ({ windowHeight, windowWidth }) =>
+    set((state) => ({ ...state, windowHeight, windowWidth })),
+}));
 
 export default useSessionStore;

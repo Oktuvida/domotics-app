@@ -4,6 +4,7 @@ import { Button, Text, Title } from "react-native-paper";
 import Wave from "@components/UI/Wave";
 import { MainScreens } from "@resources/screens";
 import { MainStackProp } from "@resources/stacks";
+import { getText } from "@resources/texts";
 
 type HomeProps = {
   navigation: MainStackProp<MainScreens.HOME>;
@@ -14,7 +15,7 @@ export default function Home({ navigation }: HomeProps) {
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Title style={styles.title}>Domotics APP</Title>
-        <Text>¡Hola! Bienvenido a nuestro proyecto</Text>
+        <Text>{getText("Hi! welcome to our project")}</Text>
         <Text></Text>
       </View>
       <View style={styles.buttonsContainer}>
@@ -25,7 +26,7 @@ export default function Home({ navigation }: HomeProps) {
             navigation.navigate(MainScreens.SERVICES);
           }, [])}
         >
-          {MainScreens.SERVICES}
+          {getText(MainScreens.SERVICES)}
         </Button>
         <Button
           compact
@@ -34,7 +35,7 @@ export default function Home({ navigation }: HomeProps) {
             navigation.navigate(MainScreens.REPORTS);
           }, [])}
         >
-          {MainScreens.REPORTS}
+          {getText(MainScreens.REPORTS)}
         </Button>
       </View>
       <Wave />

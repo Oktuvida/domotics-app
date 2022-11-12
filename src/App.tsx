@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Services from "@components/screens/Services";
+import usePersistStore from "@hooks/usePersistStore";
 import {
   NavigationContainer,
   Theme as NavigationTheme,
 } from "@react-navigation/native";
 import { createMainStack, MainStackOptions } from "@resources/stacks";
+import { getText } from "@resources/texts";
 
 import Home from "./components/screens/Home";
-import useSessionStore from "./hooks/useSessionStore";
 import { getNavigationTheme } from "./resources/navigation";
 import { MainScreens } from "./resources/screens";
 
 export default function App() {
-  const isDark = useSessionStore((state) => state.isDark);
+  const isDark = usePersistStore((state) => state.isDark);
   const theme = useTheme();
   const [navigationTheme, setNavigationTheme] = useState<NavigationTheme>();
 
@@ -42,9 +43,27 @@ const Stack = createMainStack();
 function RootStack() {
   return (
     <Stack.Navigator screenOptions={stackOptions}>
-      <Stack.Screen name={MainScreens.HOME} component={Home} />
-      <Stack.Screen name={MainScreens.SERVICES} component={Services} />
-      <Stack.Screen name={MainScreens.REPORTS} component={View} />
+      <Stack.Screen
+        name={MainScreens.HOME}
+        component={Home}
+        options={{
+          title: getText(MainScreens.HOME),
+        }}
+      />
+      <Stack.Screen
+        name={MainScreens.SERVICES}
+        component={Services}
+        options={{
+          title: getText(MainScreens.SERVICES),
+        }}
+      />
+      <Stack.Screen
+        name={MainScreens.REPORTS}
+        component={View}
+        options={{
+          title: getText(MainScreens.REPORTS),
+        }}
+      />
     </Stack.Navigator>
   );
 }

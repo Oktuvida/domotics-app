@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Slider from "@components/UI/Slider";
 import useSwitch from "@hooks/useSwitch";
+import { getText } from "@resources/texts";
 
 export default function Lights() {
   const [isAllLightsOn, setIsAllLightsOn] = useSwitch(false);
@@ -29,7 +30,7 @@ export default function Lights() {
         onIcon="lightbulb-group"
         offIcon="lightbulb-group-outline"
         style={[styles.slider, styles.allLightsContainer]}
-        title="All"
+        title={getText("All")}
         onToggleSlider={isAllLightsOnChangeHandler}
       />
       <Slider
@@ -37,7 +38,7 @@ export default function Lights() {
         onIcon="lightbulb"
         offIcon="lightbulb-outline"
         style={styles.slider}
-        title="Board"
+        title={getText("Board")}
         onToggleSlider={isBoardLightsOnChangeHandler}
       />
       <Slider
@@ -45,7 +46,7 @@ export default function Lights() {
         onIcon="lightbulb"
         offIcon="lightbulb-outline"
         style={styles.slider}
-        title="Front"
+        title={getText("Front")}
         onToggleSlider={isFrontLightsOnChangeHandler}
       />
       <Slider
@@ -53,7 +54,7 @@ export default function Lights() {
         onIcon="lightbulb"
         offIcon="lightbulb-outline"
         style={styles.slider}
-        title="Back"
+        title={getText("Back")}
         onToggleSlider={isBackLightsOnChangeHandler}
       />
     </View>

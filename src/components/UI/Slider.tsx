@@ -51,7 +51,7 @@ export default React.memo(function Slider({
               },
             ]}
             ellipsizeMode="tail"
-            numberOfLines={2}
+            numberOfLines={1}
           >
             {title}
           </Text>

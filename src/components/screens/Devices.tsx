@@ -1,11 +1,12 @@
 import React, { useCallback } from "react";
 import { StyleSheet, View } from "react-native";
-import LaptopOffIcon from "@assets/icons/devices/laptop-off.svg"
-import LaptopOnIcon from "@assets/icons/devices/laptop-on.svg"
+import LaptopOffIcon from "@assets/icons/devices/laptop-off.svg";
+import LaptopOnIcon from "@assets/icons/devices/laptop-on.svg";
 import ProjectorOff from "@assets/icons/devices/projector-off.svg";
 import ProjectorOn from "@assets/icons/devices/projector-on.svg";
 import Slider from "@components/UI/Slider";
 import useSwitch from "@hooks/useSwitch";
+import { getText } from "@resources/texts";
 
 export default function Devices() {
   const [isDesktopOn, , isDesktopOnChangeHandler] = useSwitch(false);
@@ -18,36 +19,36 @@ export default function Devices() {
         value={isDesktopOn}
         offIcon={useCallback(
           ({ size }: { size: number }) => (
-            <LaptopOffIcon width={size} height={size}/>
+            <LaptopOffIcon width={size} height={size} />
           ),
           []
         )}
         onIcon={useCallback(
           ({ size }: { size: number }) => (
-            <LaptopOnIcon width={size} height={size}/>
+            <LaptopOnIcon width={size} height={size} />
           ),
           []
         )}
         onToggleSlider={isDesktopOnChangeHandler}
-        title="Computer"
+        title={getText("Computer")}
       />
       <Slider
         style={styles.slider}
         value={isProjectorOn}
         offIcon={useCallback(
           ({ size }: { size: number }) => (
-            <ProjectorOff width={size} height={size}/>
+            <ProjectorOff width={size} height={size} />
           ),
           []
         )}
         onIcon={useCallback(
           ({ size }: { size: number }) => (
-            <ProjectorOn width={size} height={size}/>
+            <ProjectorOn width={size} height={size} />
           ),
           []
         )}
         onToggleSlider={isProjectorOnChangeHandler}
-        title="Projector"
+        title={getText("Projector")}
       />
     </View>
   );
