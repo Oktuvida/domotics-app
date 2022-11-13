@@ -5,12 +5,20 @@ import LaptopOnIcon from "@assets/icons/devices/laptop-on.svg";
 import ProjectorOff from "@assets/icons/devices/projector-off.svg";
 import ProjectorOn from "@assets/icons/devices/projector-on.svg";
 import Slider from "@components/UI/Slider";
-import useSwitch from "@hooks/useSwitch";
+import useServiceStore from "@hooks/useServicesStore";
 import { getText } from "@resources/texts";
 
 export default function Devices() {
-  const [isDesktopOn, , isDesktopOnChangeHandler] = useSwitch(false);
-  const [isProjectorOn, , isProjectorOnChangeHandler] = useSwitch(false);
+  const { isDesktopOn, isProjectorOn, setIsDesktopOn, setIsProjectorOn } =
+    useServiceStore();
+
+  const desktopSliderHandler = useCallback((isSwitchOn: boolean) => {
+    setIsDesktopOn(isSwitchOn);
+  }, []);
+
+  const projectorSliderHandler = useCallback((isSwitchOn: boolean) => {
+    setIsProjectorOn(isSwitchOn);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -29,7 +37,7 @@ export default function Devices() {
           ),
           []
         )}
-        onToggleSlider={isDesktopOnChangeHandler}
+        onToggleSlider={desktopSliderHandler}
         title={getText("Computer")}
       />
       <Slider
@@ -47,7 +55,7 @@ export default function Devices() {
           ),
           []
         )}
-        onToggleSlider={isProjectorOnChangeHandler}
+        onToggleSlider={projectorSliderHandler}
         title={getText("Projector")}
       />
     </View>
