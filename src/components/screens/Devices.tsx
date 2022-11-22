@@ -1,23 +1,20 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import LaptopOffIcon from "@assets/icons/devices/laptop-off.svg";
 import LaptopOnIcon from "@assets/icons/devices/laptop-on.svg";
 import ProjectorOff from "@assets/icons/devices/projector-off.svg";
 import ProjectorOn from "@assets/icons/devices/projector-on.svg";
 import Slider from "@components/UI/Slider";
+import { Endpoint } from "@domotics-app/lib";
 import useServiceStore from "@hooks/useServicesStore";
 import { getText } from "@resources/texts";
 
 export default function Devices() {
-  const { isDesktopOn, isProjectorOn, setIsDesktopOn, setIsProjectorOn } =
+  const { isDesktopOn, isProjectorOn, setIsDesktopOn, setIsProjectorOn, getComponentsState } =
     useServiceStore();
 
-  const desktopSliderHandler = useCallback((isSwitchOn: boolean) => {
-    setIsDesktopOn(isSwitchOn);
-  }, []);
-
-  const projectorSliderHandler = useCallback((isSwitchOn: boolean) => {
-    setIsProjectorOn(isSwitchOn);
+  useEffect(() => {
+    getComponentsState([Endpoint.DESKTOP_IS_ON, Endpoint.PROJECTOR_IS_ON])
   }, []);
 
   return (
@@ -37,7 +34,7 @@ export default function Devices() {
           ),
           []
         )}
-        onToggleSlider={desktopSliderHandler}
+        onToggleSlider={setIsDesktopOn}
         title={getText("Computer")}
       />
       <Slider
@@ -55,7 +52,7 @@ export default function Devices() {
           ),
           []
         )}
-        onToggleSlider={projectorSliderHandler}
+        onToggleSlider={setIsProjectorOn}
         title={getText("Projector")}
       />
     </View>

@@ -7,7 +7,9 @@ type ThemeState = {
   setIsDark: (isDark?: boolean) => void;
 };
 
-const usePersistStore = create<ThemeState>()(
+export type PersistStoreType = ThemeState
+
+const usePersistStore = create<PersistStoreType>()(
   devtools(
     persist(
       (set) => ({

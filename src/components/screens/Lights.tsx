@@ -1,61 +1,64 @@
 import React, { useCallback, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Slider from "@components/UI/Slider";
-import useSwitch from "@hooks/useSwitch";
+import { Endpoint } from "@domotics-app/lib";
+import useServiceStore from "@hooks/useServicesStore";
 import { getText } from "@resources/texts";
 
 export default function Lights() {
-  const [isAllLightsOn, setIsAllLightsOn] = useSwitch(false);
-  const [isBoardLightsOn, setIsBoardLightsOn, isBoardLightsOnChangeHandler] =
-    useSwitch(false);
-  const [isFrontLightsOn, setIsFrontLightsOn, isFrontLightsOnChangeHandler] =
-    useSwitch(false);
-  const [isBackLightsOn, setIsBackLightsOn, isBackLightsOnChangeHandler] =
-    useSwitch(false);
+  const {
+    setAreBackLightsOn,
+    setAreBoardLightsOn,
+    setAreFrontLightsOn,
+    areBackLightsOn,
+    areBoardLightsOn,
+    areFrontLightsOn,
+    getComponentsState
+  } = useServiceStore();
 
   useEffect(() => {
-    setIsAllLightsOn(isBoardLightsOn && isFrontLightsOn && isBackLightsOn);
-  }, [isBoardLightsOn, isFrontLightsOn, isBackLightsOn]);
+    getComponentsState([Endpoint.BACK_LIGHTS_ARE_ON, Endpoint.BOARD_LIGHTS_ARE_ON, Endpoint.FRONT_LIGHTS_ARE_ON])
+  }, []);
 
-  const isAllLightsOnChangeHandler = useCallback((isSwitchOn: boolean) => {
-    setIsBoardLightsOn(isSwitchOn);
-    setIsFrontLightsOn(isSwitchOn);
-    setIsBackLightsOn(isSwitchOn);
+  const areAllLightsOnChangeHandler = useCallback((isSwitchOn: boolean) => {
+    setAreBoardLightsOn(isSwitchOn);
+    setAreFrontLightsOn(isSwitchOn);
+    setAreBackLightsOn(isSwitchOn);
   }, []);
 
   return (
     <View style={styles.container}>
       <Slider
-        value={isAllLightsOn}
+        value={areBoardLightsOn && areFrontLightsOn && areBackLightsOn}
         onIcon="lightbulb-group"
         offIcon="lightbulb-group-outline"
         style={[styles.slider, styles.allLightsContainer]}
         title={getText("All")}
-        onToggleSlider={isAllLightsOnChangeHandler}
+        onToggleSlider={areAllLightsOnChangeHandler}
       />
       <Slider
-        value={isBoardLightsOn}
+        value={areBoardLightsOn}
         onIcon="lightbulb"
         offIcon="lightbulb-outline"
         style={styles.slider}
         title={getText("Board")}
-        onToggleSlider={isBoardLightsOnChangeHandler}
+        onToggleSlider={setAreBoardLightsOn}
       />
       <Slider
-        value={isFrontLightsOn}
+        value={areFrontLightsOn}
         onIcon="lightbulb"
         offIcon="lightbulb-outline"
         style={styles.slider}
         title={getText("Front")}
-        onToggleSlider={isFrontLightsOnChangeHandler}
+        onToggleSlider={setAreFrontLightsOn}
       />
       <Slider
-        value={isBackLightsOn}
+        value={areBackLightsOn}
         onIcon="lightbulb"
         offIcon="lightbulb-outline"
         style={styles.slider}
         title={getText("Back")}
-        onToggleSlider={isBackLightsOnChangeHandler}
+        onToggleSlider={setAreBackLightsOn}
       />
     </View>
   );

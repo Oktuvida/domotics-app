@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import Services from "@components/screens/Services";
-import usePersistStore from "@hooks/usePersistStore";
+import usePersistStore, { PersistStoreType } from "@hooks/usePersistStore";
 import {
   NavigationContainer,
   Theme as NavigationTheme,
@@ -14,8 +14,10 @@ import Home from "./components/screens/Home";
 import { getNavigationTheme } from "./resources/navigation";
 import { MainScreens } from "./resources/screens";
 
+const selector = (state: PersistStoreType) => state.isDark;
+
 export default function App() {
-  const isDark = usePersistStore((state) => state.isDark);
+  const isDark = usePersistStore(selector);
   const theme = useTheme();
   const [navigationTheme, setNavigationTheme] = useState<NavigationTheme>();
 

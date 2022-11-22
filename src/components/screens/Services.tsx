@@ -8,7 +8,6 @@ import Icon from "../UI/Icon";
 
 import Devices from "./Devices";
 import Lights from "./Lights";
-import Temperature from "./Temperature";
 import Windows from "./Windows";
 
 type ServicesProps = {
@@ -32,9 +31,6 @@ export default function Services({ navigation }: ServicesProps) {
                 break;
               case ServicesScreens.WINDOWS:
                 name = focused ? "grid" : "grid-outline";
-                break;
-              case ServicesScreens.TEMPERATURE:
-                name = focused ? "thermometer" : "thermometer-outline";
                 break;
             }
 
@@ -63,13 +59,6 @@ export default function Services({ navigation }: ServicesProps) {
           component={Windows}
           options={{
             title: getText(ServicesScreens.WINDOWS),
-          }}
-        />
-        <Stack.Screen
-          name={ServicesScreens.TEMPERATURE}
-          component={Temperature}
-          options={{
-            title: getText(ServicesScreens.TEMPERATURE),
           }}
         />
       </Stack.Navigator>
