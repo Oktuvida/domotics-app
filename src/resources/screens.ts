@@ -14,12 +14,10 @@ export enum ServicesScreens {
   LIGHTS = "Lights",
   DEVICES = "Devices",
   WINDOWS = "Windows",
-  TEMPERATURE = "Temperature",
 }
 
 export type ServicesScreensProps = {
   [ServicesScreens.LIGHTS]: undefined;
   [ServicesScreens.DEVICES]: undefined;
   [ServicesScreens.WINDOWS]: undefined;
-  [ServicesScreens.TEMPERATURE]: undefined;
 };

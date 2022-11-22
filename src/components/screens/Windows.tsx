@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Slider from "@components/UI/Slider";
-import useSwitch from "@hooks/useSwitch";
+import { Endpoint } from "@domotics-app/lib";
+import useServiceStore from "@hooks/useServicesStore";
 import { getText } from "@resources/texts";
 
 export default function Windows() {
-  const [isFirstCurtainOpen, , setIsFirstCurtainOpen] = useSwitch(false);
-  const [isSecondCurtainOpen, , setIsSecondCurtainOpen] = useSwitch(false);
+  const {
+    isFirstCurtainOpen,
+    setIsFirstCurtainOpen,
+    isSecondCurtainOpen,
+    setIsSecondCurtainOpen,
+    getComponentsState
+  } = useServiceStore();
+
+  useEffect(() => {
+    getComponentsState([Endpoint.FIRST_CURTAIN_IS_OPEN, Endpoint.SECOND_CURTAIN_IS_OPEN])
+  }, []);
 
   return (
     <View style={styles.container}>
